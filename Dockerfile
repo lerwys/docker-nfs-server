@@ -2,7 +2,8 @@ FROM ubuntu:xenial
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -qq && \
+RUN echo "nameserver 10.0.0.71" > /etc/resolv.conf && \
+    apt-get update -qq && \
     apt-get install -y \
     nfs-kernel-server \
     runit inotify-tools -qq && \
