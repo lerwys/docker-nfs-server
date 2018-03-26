@@ -1,4 +1,5 @@
-FROM ubuntu
+FROM ubuntu:xenial
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -qq && \
