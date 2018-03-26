@@ -1,6 +1,12 @@
 FROM ubuntu
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update -qq && apt-get install -y nfs-kernel-server runit inotify-tools -qq
+
+RUN apt-get update -qq && \
+    apt-get install -y \
+    nfs-kernel-server \
+    runit inotify-tools -qq && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN mkdir -p /exports
 
 RUN mkdir -p /etc/sv/nfs
