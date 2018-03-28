@@ -4,6 +4,7 @@
 . /etc/default/nfs-common
 
 rpcbind
+rpc.statd ${STATDOPTS}
 service nfs-kernel-server start
 
 exec inotifywait -m /exports
