@@ -6,7 +6,8 @@ RUN echo "nameserver 10.0.0.71" > /etc/resolv.conf && \
     apt-get update && \
     apt-get install -y \
     nfs-kernel-server \
-    runit inotify-tools && \
+    runit \
+    inotify-tools && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /exports
