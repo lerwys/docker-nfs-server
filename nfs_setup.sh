@@ -2,7 +2,7 @@
 
 set -e
 
-mounts="${@}"
+mounts=("$@")
 
 echo "#NFS Exports" > /etc/exports
 
