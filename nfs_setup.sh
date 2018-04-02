@@ -7,9 +7,17 @@ mounts=("$@")
 echo "#NFS Exports" > /etc/exports
 
 for mnt in "${mounts[@]}"; do
-  src=$(echo $mnt | awk -F':' '{ print $1 }')
+  OLDIFS=$IFS; IFS=',';
+  # Separate "tuple" arguments with positional notation
+  set -- ${mnt};
+  path=$1
+  net=$2
+
+  src=$(echo $path | awk -F':' '{ print $1 }')
   mkdir -p $src
-  echo "$src *(ro,async,no_subtree_check,no_root_squash,insecure)" >> /etc/exports
+  echo "$src $net(ro,async,no_subtree_check,no_root_squash,insecure)" >> /etc/exports
+
+  IFS=$OLDIFS;
 done
 
 exec runsvdir /etc/sv
