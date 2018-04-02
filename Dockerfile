@@ -20,6 +20,8 @@ ADD nfs.stop /etc/sv/nfs/finish
 ADD nfs_setup.sh /usr/local/bin/nfs_setup
 
 RUN echo "rpc.nfsd 2049/tcp" >> /etc/services && \
+    echo "rpc.nfsd 2049/udp" >> /etc/services && \
+    echo "nfs 111/tcp" >> /etc/services && \
     echo "nfs 111/udp" >> /etc/services && \
     echo "rpc.statd-bc 32765/tcp" >> /etc/services && \
     echo "rpc.statd-bc 32765/udp" >> /etc/services && \
@@ -40,6 +42,6 @@ RUN echo "rpc.nfsd 2049/tcp" >> /etc/services && \
 
 VOLUME /exports
 
-EXPOSE 111/udp 2049/tcp 32765-32769/tcp 32765-32769/udp
+EXPOSE 111/tcp 111/udp 2049/tcp 2049/udp 32765-32769/tcp 32765-32769/udp
 
 ENTRYPOINT ["/usr/local/bin/nfs_setup"]
