@@ -2,7 +2,7 @@ FROM debian:9.4
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo "nameserver 10.0.0.71" > /etc/resolv.conf && \
+RUN echo "nameserver 10.0.0.71" >> /etc/resolv.conf && \
     apt-get update && \
     apt-get install -y \
     nfs-kernel-server \
