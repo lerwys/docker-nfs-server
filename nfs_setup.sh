@@ -13,11 +13,21 @@ for mnt in "${mounts[@]}"; do
   set -- ${mnt};
   path=$1
   net=$2
+  opts=(${@:3})
   set +o noglob
+
+  # Put a comm after each options
+  fullopts=()
+  for op in "${opts[@]}"; do
+    fullopts+=(${op})
+    fullopts+=(",")
+  done
+  # remove spaces between options
+  fullopts="$(printf "%s" "${fullopts[@]}")"
 
   src=$(echo $path | awk -F':' '{ print $1 }')
   mkdir -p $src
-  echo "$src $net(ro,async,no_subtree_check,no_root_squash,insecure)" >> /etc/exports
+  echo "$src $net(${fullopts}no_subtree_check,no_root_squash,insecure)" >> /etc/exports
 
   IFS=$OLDIFS;
 done
